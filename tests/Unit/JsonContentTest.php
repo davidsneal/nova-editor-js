@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use Advoor\NovaEditorJs\NovaEditorJs;
+use Davidsneal\NovaEditorJs\NovaEditorJs;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

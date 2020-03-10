@@ -1,5 +1,5 @@
 {
-    "name": "advoor/nova-editor-js",
+    "name": "davidsneal/nova-editor-js",
     "description": "A Laravel Nova field bringing EditorJs magic to Nova.",
     "keywords": [
         "laravel",
@@ -14,7 +14,7 @@
         "ext-exif": "*",
         "ext-json": "*",
         "codex-team/editor.js": "*",
-        "laravel/nova": "^2.0",
+        "laravel/nova": "*",
         "spatie/image": "^1.7"
     },
     "require-dev": {
@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Advoor\\NovaEditorJs\\": "src/"
+            "Davidsneal\\NovaEditorJs\\": "src/"
         }
     },
     "autoload-dev": {
@@ -33,7 +33,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Advoor\\NovaEditorJs\\FieldServiceProvider"
+                "Davidsneal\\NovaEditorJs\\FieldServiceProvider"
             ]
         }
     },
