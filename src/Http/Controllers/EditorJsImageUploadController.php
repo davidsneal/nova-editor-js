@@ -29,19 +29,23 @@ class EditorJsImageUploadController extends Controller
             ];
         }
 
-        $path = $request->file('image')->store(
-            config('nova-editor-js.toolSettings.image.path'),
-            config('nova-editor-js.toolSettings.image.disk')
-        );
+        $path = config('nova-editor-js.toolSettings.image.path');
+        $filename = uniqid().'.'.$request->file('image')->getClientOriginalExtension();
 
-        $this->applyAlterations(Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->path($path));
-        $thumbnails = $this->applyThumbnails($path);
+        Storage::disk('s3')
+            ->putFileAs(
+                $path,
+                $request->file('image'),
+                $filename,
+                [
+                    'visibility' => 'public',
+                ],
+            );
 
         return [
             'success' => 1,
             'file' => [
-                'url' => Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($path),
-                'thumbnails' => $thumbnails
+                'url' => config('nova-editor-js.toolSettings.image.cdn').'/'.$path.'/'.$filename,
             ]
         ];
     }
@@ -84,7 +88,6 @@ class EditorJsImageUploadController extends Controller
         $nameWithPath = config('nova-editor-js.toolSettings.image.path') . '/' . uniqid() . $name;
 
         Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->put($nameWithPath, $imageContents);
-
         return [
             'success' => 1,
             'file' => [
@@ -107,7 +110,7 @@ class EditorJsImageUploadController extends Controller
             if (!empty($alterations)) {
                 $imageSettings = $alterations;
             }
-            
+
             if(empty($imageSettings))
                 return;
 

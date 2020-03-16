@@ -37,6 +37,7 @@ return [
             'activated' => true,
             'shortcut' => 'CMD+SHIFT+I',
             'path' => 'public/images',
+            'cdn' => env('NOVA_EDITORJS_CDN'),
             'disk' => 'local',
             'alterations' => [
                 'resize' => [
